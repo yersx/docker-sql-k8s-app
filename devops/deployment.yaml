@@ -8,7 +8,7 @@ spec:
   minReadySeconds: 1
   selector:
     matchLabels: *labels
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   template: 
     metadata:
@@ -18,4 +18,19 @@ spec:
       - name: *service-name
         image: yersultan/simplegolangk8sdocker:v1
         command: ["./binary"]
-          
+        ports:
+        - name: back
+          containerPort: 8000
+        livenessProbe:
+          httpGet:
+            port: 8000
+            path: /health
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            port: 8000
+            path: /health
+          initialDelaySeconds: 10
+          periodSeconds: 5

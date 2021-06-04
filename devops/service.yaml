@@ -8,6 +8,7 @@ spec:
     app: *service-name
   ports:
     - name: http
-      port: 8000
+      port: 9479
       nodePort: 31123
+      targetPort: back
       protocol: TCP

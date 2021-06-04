@@ -1,12 +1,12 @@
-#1st build
+# create 
 FROM golang:1.13
-WORKDIR /go/src/github.com/simplegolangk8sdocker
+WORKDIR /go/src/github.com/first-golang-k8s-dockerApp
 
 COPY cli ./cli
 
 RUN CGO_ENABLED=0 GOOS=linux go install ./cli/server
 
-#2nd Stage
+# execute
 
 FROM alpine:latest
 WORKDIR /app/
