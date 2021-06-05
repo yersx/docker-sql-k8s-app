@@ -1,6 +1,6 @@
 # create 
 FROM golang:1.13
-WORKDIR /go/src/github.com/first-golang-k8s-dockerApp
+WORKDIR /go/src/github.com/simple-fullstackApp
 
 COPY cli ./cli
 

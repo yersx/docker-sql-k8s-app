@@ -1,22 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: &service-name simplegolangk8sdocker
-  labels: &labels
-    app: *service-name
+  name: backend-deployment
 spec:
-  minReadySeconds: 1
-  selector:
-    matchLabels: *labels
   replicas: 3
-  revisionHistoryLimit: 10
-  template: 
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
     metadata:
-      labels: *labels
+      labels:
+        app: backend-app
     spec:
       containers:
-      - name: *service-name
-        image: yersultan/simplegolangk8sdocker:v1
+      - name: backend
+        image: yersultan/simplefullstackapp_backend:v1
         command: ["./binary"]
         ports:
         - name: back
@@ -24,13 +22,13 @@ spec:
         livenessProbe:
           httpGet:
             port: 8000
-            path: /health
+            path: /users
           initialDelaySeconds: 10
           periodSeconds: 5
           timeoutSeconds: 2
         readinessProbe:
           httpGet:
             port: 8000
-            path: /health
+            path: /users
           initialDelaySeconds: 10
           periodSeconds: 5
